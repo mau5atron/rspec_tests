@@ -7,10 +7,10 @@ require 'rspec/autorun'
 #   have extra spaces. /////////// DONE
 
 # - Add a method to return a full name with a middle initial. If the middle name
-#   is missing, there shouldn't be extra spaces or a period.
+#   is missing, there shouldn't be extra spaces or a period. /// Done
 
 # - Add a method to return all initials. If the middle name is missing, the
-#   initials should only have two characters.
+#   initials should only have two characters. /// Done
 #
 # We've already sketched out the spec descriptions for the #full_name. Try
 # building the specs for that method, watch them fail, then write the code to
