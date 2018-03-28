@@ -4,9 +4,11 @@ require 'rspec/autorun'
 # Here are the requirements:
 # - Add a method to return the full name as a string. A full name includes
 #   first, middle, and last name. If the middle name is missing, there shouldn't
-#   have extra spaces.
+#   have extra spaces. /////////// DONE
+
 # - Add a method to return a full name with a middle initial. If the middle name
 #   is missing, there shouldn't be extra spaces or a period.
+
 # - Add a method to return all initials. If the middle name is missing, the
 #   initials should only have two characters.
 #
@@ -21,12 +23,27 @@ class Person
     @middle_name = middle_name
     @last_name = last_name
   end
-
+  # Returns the string while first-- removing all the whitespace on both ends of string
+  # 
   def full_name
-    squish("#{@first_name} #{@middle_name} #{last_name}")
+    squish("#{@first_name} #{@middle_name} #{@last_name}")
+  end
+
+  def full_name_with_middle_initial
+    # middle name is made into initial if it exists
+    squish("#{@first_name} #{@middle_name[0] if @middle_name} #{@last_name}")    
+  end
+
+  def initials
+    squish("#{@first_name[0]} #{@middle_name[0] if @middle_name} #{@last_name[0]}")
+  end
+
+  def squish(s)
+    s.strip.gsub(/\s+/, " ")
   end
 
 end
+
 
 RSpec.describe Person do
   # define objects below 
@@ -35,14 +52,30 @@ RSpec.describe Person do
 
   describe "#full_name" do
     it "concatenates first name, middle name, and last name with spaces" do 
-      expect(person_with_middle_name.full_name).to eq("Gabriel Betancourt Betancourt")
+      expect(person_with_middle_name.full_name).to eq("Gabriel Enrique Betancourt")
     end
-    it "does not add extra spaces if middle name is missing" do 
 
+    it "does not add extra spaces if middle name is missing" do 
+      expect(person_without_middle_name.full_name).to eq("Gabriel Betancourt")
     end 
   end
 
-  describe "#full_name_with_middle_initial"
+  describe "#full_name_with_middle_initial" do 
+    it "concatenates first name, middle name initial, and last name with spaces" do
+      expect(person_with_middle_name.full_name_with_middle_initial).to eq("Gabriel E Betancourt")
+    end
 
-  describe "#initials"
+    it "does not add extra spaces if middle name is missing" do
+      expect(person_without_middle_name.full_name_with_middle_initial).to eq("Gabriel Betancourt")
+    end
+  end
+
+  describe "#initials" do 
+    it "concatenates first name initial, middle name initial, and last name initial with spaces" do 
+       expect(person_with_middle_name.initials).to eq("G E B")
+    end
+    it "does not extra spaces if middle initial is missing" do 
+      expect(person_without_middle_name.initials).to eq("G B")
+    end
+  end
 end
